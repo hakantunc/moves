@@ -1,0 +1,10 @@
+{
+  "name": "moves",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "debug": "^2.2.0",
+    "express": "^4.12.4",
+    "express-session": "^1.11.2"
+  }
+}
