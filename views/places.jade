@@ -1,4 +1,13 @@
 extends layout
 
 block content
-  pre #{json}
+  table
+    thead
+      tr
+        th Location
+        th Number of Visits
+    tbody
+      for place in sorted_places
+        tr
+          td= place[0]
+          td= place[1]
