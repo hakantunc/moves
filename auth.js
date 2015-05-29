@@ -13,15 +13,13 @@ var oauth2 = require('simple-oauth2')({
 });
 
 var authorization_uri = oauth2.authCode.authorizeURL({
-  redirect_uri: 'http://localhost:3000/auth/moves/callback',
   scope: 'activity location'
 });
 
 router.get('/moves/callback', function(req, res, next) {
   var code = req.query.code;
   oauth2.authCode.getToken({
-    code: code,
-    redirect_uri: 'http://localhost:3000/auth/moves/callback'
+    code: code
   }, saveToken);
 
   function saveToken(error, result) {
