@@ -6,8 +6,10 @@ block content
       tr
         th Location
         th Number of Visits
+        th Average Arrival Time
     tbody
       for place in sorted_places
         tr
           td= place[0]
           td= place[1]
+          td= place[2]
