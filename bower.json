@@ -1,0 +1,16 @@
+{
+  "name": "moves",
+  "version": "0.0.0",
+  "homepage": "https://github.com/hakantunc/moves",
+  "authors": [
+    "Hakan Tunc <hakan.tunc@vanderbilt.edu>"
+  ],
+  "main": "app.js",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "~3.3.4"
+  }
+}

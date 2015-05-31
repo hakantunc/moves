@@ -60,9 +60,6 @@ var getPlacesSorted = function (places) {
         sum += instance[1] - getTime(instance[0]);
         prev = instance[0];
         counted++;
-        if (element[0] === '20') {
-          console.log(counted, instance[0], instance[1], new Date(instance[1] * 1000));
-        }
       }
     }
     sum = sum / counted;

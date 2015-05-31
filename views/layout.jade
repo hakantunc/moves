@@ -1,6 +1,15 @@
 doctype html
-html
+html(lang='en')
   head
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    // bower:css
+    link(rel='stylesheet', href='../bower_components/bootstrap/dist/css/bootstrap.css')
+    // endbower
     title= title
   body
-    block content
+    // bower:js
+    script(src='../bower_components/jquery/dist/jquery.js')
+    script(src='../bower_components/bootstrap/dist/js/bootstrap.js')
+    // endbower
+    .container
+      block content
