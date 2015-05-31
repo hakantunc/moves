@@ -10,7 +10,7 @@
     "jade": "^1.9.2",
     "request": "^2.55.0",
     "serve-favicon": "^2.2.1",
-    "simple-oauth2": "^0.2.1",
+    "simple-oauth2": "hakantunc/simple-oauth2",
     "wiredep": "^2.2.2"
   },
   "scripts": {

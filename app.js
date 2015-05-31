@@ -28,7 +28,7 @@ app.use(session({
 
 app.get('/', function (req, res) {
   if (!req.session.access_token) {
-    res.redirect(auth.authorization_uri);
+    res.redirect(auth.authorization_uri(req.headers.host, /Mobi/.test(req.headers['user-agent'])));
   } else {
     res.render('index', { 
       title: 'Home',
