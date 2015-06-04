@@ -1,0 +1,4 @@
+/* Override bootstrap-table.css */
+.fixed-table-container thead th .th-inner {
+  white-space: normal;
+}
