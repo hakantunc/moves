@@ -36,6 +36,8 @@ router.get('/moves/callback', function(req, res, next) {
     if (error) { debug('Access Token Error', error); }
     var token = oauth2.accessToken.create(result);
     req.session.access_token = token.token.access_token;
+    req.session.refresh_token = token.token.refresh_token;
+    req.session.expires_in = token.token.expires_in;
     res.redirect('/');
   }
 });

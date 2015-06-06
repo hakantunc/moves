@@ -26,18 +26,22 @@ app.use(session({
   saveUninitialized: true
 }));
 
-app.get('/', function (req, res) {
+app.use('/auth', auth.router);
+
+app.all('*', function (req, res, next) {
   if (!req.session.access_token) {
     res.redirect(auth.authorization_uri(req.headers.host, /Mobi/.test(req.headers['user-agent'])));
   } else {
-    res.render('index', { 
-      title: 'Home',
-      content: 'Moves App'
-    });
+    next();
   }
 });
 
-app.use('/auth', auth.router);
+app.get('/', function (req, res) {
+  res.render('index', {
+    title: 'Home',
+    content: 'Moves App'
+  });
+});
 
 app.get('/places', function (req, res) {
   get_places_data(req.session.access_token, function (err, data) {
