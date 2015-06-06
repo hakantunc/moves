@@ -1,12 +1,13 @@
 extends layout
 
 block content
-  table.table.table-striped
+  table.table.table-striped(data-classes='table-no-bordered' data-toggle='table'
+    data-pagination='true' data-search='true' data-search-align='left')
     thead
       tr
-        th Location
-        th Number of Visits
-        th Average Arrival Time
+        th(data-sortable='true') Location
+        th(data-sortable='true') Number of Visits
+        th(data-sortable='true') Average Arrival Time
     tbody
       for place in sorted_places
         tr
