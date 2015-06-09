@@ -11,6 +11,7 @@ var parsePlacesData = function (places) {
   var list = {};
   for (var day of places) {
     for (var segment of day.segments) {
+      if (segment.place.name === undefined) continue;
       list[segment.place.name] = list[segment.place.name] || new Array();
       list[segment.place.name].push(
         [day.date, getTime(segment.startTime), getTime(segment.endTime)]
