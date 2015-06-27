@@ -54,6 +54,17 @@ app.get('/places', function (req, res) {
   });
 });
 
+app.get('/storyline', function (req, res) {
+  var site = 'https://api.moves-app.com/';
+  var request_path = '/api/1.1/user/storyline/daily?pastDays=28&access_token=' + req.session.access_token;
+
+  var full_path = url.resolve(site, request_path);
+  // we get the json data.
+  request(full_path, function (err, response, body) {
+    res.send(body);
+  });
+});
+
 function get_places_data (access_token, next) {
   if (process.env.DEBUG) {
     var pl = require('./temp/places');

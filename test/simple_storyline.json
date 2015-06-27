@@ -1,0 +1,53 @@
+{
+  "date": "20150603",
+  "lastUpdate": "20150604T170109Z",
+  "segments": [
+    {
+      "endTime": "20150603T095435-0500",
+      "lastUpdate": "20150603T174955Z",
+      "place": {
+        "id": 1,
+        "location": {
+          "lat": 20.13,
+          "lon": -30.81
+        },
+        "name": "A",
+        "type": "user"
+      },
+      "startTime": "20150602T223630-0500",
+      "type": "place"
+    },
+    {
+      "activities": [
+        {
+          "activity": "transport",
+          "distance": 3317.0,
+          "duration": 387.0,
+          "endTime": "20150603T100102-0500",
+          "group": "transport",
+          "manual": false,
+          "startTime": "20150603T095435-0500"
+        }
+      ],
+      "endTime": "20150603T100101-0500",
+      "lastUpdate": "20150603T174955Z",
+      "startTime": "20150603T095435-0500",
+      "type": "move"
+    },
+    {
+      "endTime": "20150603T113754-0500",
+      "lastUpdate": "20150603T175000Z",
+      "place": {
+        "id": 2,
+        "location": {
+          "lat": 20.14,
+          "lon": -30.79
+        },
+        "name": "B",
+        "type": "user"
+      },
+      "startTime": "20150603T100101-0500",
+      "type": "place"
+    }
+  ]
+}
