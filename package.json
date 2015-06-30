@@ -8,6 +8,7 @@
     "express": "^4.12.4",
     "express-session": "^1.11.2",
     "jade": "^1.9.2",
+    "moment": "^2.10.3",
     "request": "^2.55.0",
     "serve-favicon": "^2.2.1",
     "simple-oauth2": "hakantunc/simple-oauth2",
