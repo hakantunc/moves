@@ -11,7 +11,7 @@ Travel.prototype.travelList = function (data) {
   var traveling = false;
   var dt = new DateTime();
 
-  for (var segment of data.segments) {
+  for (var segment of data[0].segments) {
     switch(segment.type) {
       case 'place':
         handlePlace();
@@ -25,18 +25,20 @@ Travel.prototype.travelList = function (data) {
   return list;
 
   function handlePlace() {
+    var curr_place = {
+      name: segment.place.name,
+      id: segment.place.id
+    };
     if (traveling) {
-      curr_item.push(segment.place.name);
+      traveling = false;
+      curr_item.push(curr_place);
       list.push(curr_item);
-    } else {
-      curr_item = [segment.place.name];
     }
+    curr_item = [curr_place];
   }
 
   function handleMove() {
-    if (traveling) {
-
-    } else {
+    if (!traveling) {
       traveling = true;
       if (curr_item.length === 1) {
         curr_item.push(dt.getDiff(segment.endTime, segment.startTime));
