@@ -4,6 +4,45 @@ var DateTime = require('./DateTime');
 
 function Travel () { }
 
+Travel.prototype.getTravelList = function (data) {
+  var list = [];
+  var curr_item = {};
+  var traveling = false;
+
+  for (var i = 0; i < data.length; i++) {
+    for (var segment of data[i].segments) {
+      switch(segment.type) {
+        case 'place':
+          handlePlace();
+          break;
+        case 'move':
+          handleMove();
+          break;
+      }
+    }
+  }
+
+  return list;
+
+  function handlePlace() {
+    if (traveling) {
+      traveling = false;
+      curr_item.to = segment;
+      list.push(curr_item);
+    }
+    curr_item = {};
+    curr_item.from = segment;
+  }
+
+  function handleMove() {
+    if (!traveling) {
+      traveling = true;
+      curr_item.travels = curr_item.travels || [];
+      curr_item.travels.push(segment);
+    }
+  }
+};
+
 Travel.prototype.travelList = function (data) {
 
   var list = [];
@@ -11,14 +50,16 @@ Travel.prototype.travelList = function (data) {
   var traveling = false;
   var dt = new DateTime();
 
-  for (var segment of data[0].segments) {
-    switch(segment.type) {
-      case 'place':
-        handlePlace();
-        break;
-      case 'move':
-        handleMove();
-        break;
+  for (var i = 0; i < data.length; i++) {
+    for (var segment of data[i].segments) {
+      switch(segment.type) {
+        case 'place':
+          handlePlace();
+          break;
+        case 'move':
+          handleMove();
+          break;
+      }
     }
   }
 
