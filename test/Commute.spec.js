@@ -1,39 +1,39 @@
 'use strict';
 
-var Travel = require('../src/Travel');
+var Commute = require('../src/Commute');
 var assert = require('assert');
 
 var simple_storyline = require('./data/simple_storyline');
 var storyline = require('./data/storyline');
 
-describe('Travel', function () {
+describe('Commute', function () {
 
-  var travel = new Travel();
+  var commute = new Commute();
 
-  describe('#getTravelList()', function () {
-    var ss_get_travel_list = [
+  describe('#getCommuteList()', function () {
+    var ss_get_commute_list = [
       {
         from: simple_storyline[0].segments[0],
         to: simple_storyline[0].segments[2],
-        travels: [
+        commutes: [
           simple_storyline[0].segments[1]
         ]
       }
     ];
     it('should be equal', function () {
       assert.deepEqual(
-        ss_get_travel_list,
-        travel.getTravelList(simple_storyline)
+        ss_get_commute_list,
+        commute.getCommuteList(simple_storyline)
       );
     });
   });
 
-  describe('#travelList()', function () {
+  describe('#commuteList()', function () {
 
-    var simple_storyline_travel_list = [
+    var simple_storyline_commute_list = [
       [ {id: 1, name: 'A'}, 386, {id: 2, name: 'B'} ]
     ];
-    var storyline_travel_list = [
+    var storyline_commute_list = [
       [ {id: 1, name: undefined }, 1907, {id: 2, name: undefined } ],
       [ {id: 2, name: undefined }, 384, {id: 4, name: 'test' } ],
       [ {id: 4, name: 'test' }, 359, {id: 2, name: undefined } ],
@@ -41,17 +41,17 @@ describe('Travel', function () {
     ];
 
     it('should be equal', function () {
-      assert.deepEqual(simple_storyline_travel_list, travel.travelList(simple_storyline));
+      assert.deepEqual(simple_storyline_commute_list, commute.commuteList(simple_storyline));
     });
 
     it('should be equal', function () {
-      assert.deepEqual(storyline_travel_list, travel.travelList(storyline));
+      assert.deepEqual(storyline_commute_list, commute.commuteList(storyline));
     });
 
     var two_day_storyline = storyline.concat(simple_storyline);
 
     it('should be equal', function () {
-      assert.deepEqual(storyline_travel_list.concat(simple_storyline_travel_list), travel.travelList(two_day_storyline));
+      assert.deepEqual(storyline_commute_list.concat(simple_storyline_commute_list), commute.commuteList(two_day_storyline));
     });
 
   });

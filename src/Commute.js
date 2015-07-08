@@ -2,13 +2,14 @@
 
 var DateTime = require('./DateTime');
 
-function Travel () { }
+function Commute () { }
 
-Travel.prototype.getTravelList = function (data) {
+Commute.prototype.getCommuteList = function (data) {
   var list = [];
   var curr_item = {};
-  var traveling = false;
+  var commuting = false;
 
+  debugger;
   for (var i = 0; i < data.length; i++) {
     for (var segment of data[i].segments) {
       switch(segment.type) {
@@ -25,8 +26,8 @@ Travel.prototype.getTravelList = function (data) {
   return list;
 
   function handlePlace() {
-    if (traveling) {
-      traveling = false;
+    if (commuting) {
+      commuting = false;
       curr_item.to = segment;
       list.push(curr_item);
     }
@@ -35,19 +36,19 @@ Travel.prototype.getTravelList = function (data) {
   }
 
   function handleMove() {
-    if (!traveling) {
-      traveling = true;
-      curr_item.travels = curr_item.travels || [];
-      curr_item.travels.push(segment);
+    if (!commuting) {
+      commuting = true;
+      curr_item.commutes = curr_item.commutes || [];
+      curr_item.commutes.push(segment);
     }
   }
 };
 
-Travel.prototype.travelList = function (data) {
+Commute.prototype.commuteList = function (data) {
 
   var list = [];
   var curr_item = [];
-  var traveling = false;
+  var commuting = false;
   var dt = new DateTime();
 
   for (var i = 0; i < data.length; i++) {
@@ -70,8 +71,8 @@ Travel.prototype.travelList = function (data) {
       name: segment.place.name,
       id: segment.place.id
     };
-    if (traveling) {
-      traveling = false;
+    if (commuting) {
+      commuting = false;
       curr_item.push(curr_place);
       list.push(curr_item);
     }
@@ -79,8 +80,8 @@ Travel.prototype.travelList = function (data) {
   }
 
   function handleMove() {
-    if (!traveling) {
-      traveling = true;
+    if (!commuting) {
+      commuting = true;
       if (curr_item.length === 1) {
         curr_item.push(dt.getDiff(segment.endTime, segment.startTime));
       }
@@ -89,4 +90,4 @@ Travel.prototype.travelList = function (data) {
 
 };
 
-module.exports = Travel;
+module.exports = Commute;
