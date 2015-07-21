@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  table.table.table-striped
+    thead
+      tr
+        th From
+        th To
+        th Number of Visits
+    tbody
+      for commute in commute_list
+        tr
+          td= commute.from.place.name
+          td= commute.to.place.name
+          td= commute.commutes.length
+  pre= JSON.stringify(commute_list, null, 2)

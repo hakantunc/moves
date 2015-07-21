@@ -16,7 +16,11 @@ router.get('/', function (req, res) {
   // we get the json data.
   request(full_path, function (err, response, body) {
     var result = t.getCommuteList(JSON.parse(body));
-    res.send(result);
+    // res.send(result);
+    res.render('commutes', {
+      title: 'Commutes',
+      commute_list: result
+    });
   });
 });
 
