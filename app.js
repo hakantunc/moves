@@ -2,41 +2,34 @@
 
 var debug = require('debug')('moves:app');
 var express = require('express');
-var session = require('express-session');
-var path = require('path');
-var favicon = require('serve-favicon');
+
 var url = require('url');
 var request = require('request');
 var auth = require('./auth');
 var app = express();
 var analyze = require('./analyze');
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+//
+var env = 'development';
+var config = require('./config/config')[env];
+var mongoose = require('mongoose');
+mongoose.connect(config.db);
 
-app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use('/public',  express.static(__dirname + '/public'));
-app.use('/bower_components',  express.static(__dirname + '/bower_components'));
+var passport = require('passport');
+require('./config/express')(app, config, passport);
+require('./config/passport')(passport, config);
+require('./config/routes')(app, passport);
 
-require('wiredep')({src: './views/layout.jade'});
-
-app.use(session({
-  secret: 'moves',
-  resave: false,
-  saveUninitialized: true
-}));
-
-
+// rest is to be organized
 app.use('/auth', auth.router);
 
-app.all('*', function (req, res, next) {
-  if (!req.session.access_token) {
-    res.redirect(auth.authorization_uri(req.headers.host, /Mobi/.test(req.headers['user-agent'])));
-  } else {
-    next();
-  }
-});
+// app.all('*', function (req, res, next) {
+//   if (!req.session.access_token) {
+//     res.redirect(auth.authorization_uri(req.headers.host, /Mobi/.test(req.headers['user-agent'])));
+//   } else {
+//     next();
+//   }
+// });
 
 app.get('/', function (req, res) {
   res.render('index', {
