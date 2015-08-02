@@ -5,15 +5,18 @@ var express = require('express');
 
 var url = require('url');
 var request = require('request');
-var auth = require('./auth');
+var auth = require('./src/auth');
 var app = express();
-var analyze = require('./analyze');
+var analyze = require('./src/analyze');
 
 //
 var env = 'development';
+var path = require('path');
 var config = require('./config/config')[env];
 var mongoose = require('mongoose');
 mongoose.connect(config.db);
+
+require(path.join(config.root, 'app/models/users'));
 
 var passport = require('passport');
 require('./config/express')(app, config, passport);
