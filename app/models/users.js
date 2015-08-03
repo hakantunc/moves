@@ -18,10 +18,3 @@ userSchema.methods.encryptPassword = function (password) {
 };
 
 var User = mongoose.model('User', userSchema);
-
-// var kitty = new User({ username: 'ab'});
-// kitty.hashed_pw = kitty.encryptPassword('123');
-// kitty.save(function (err) {
-//   if (err) // ...
-//   console.log('meow');
-// });

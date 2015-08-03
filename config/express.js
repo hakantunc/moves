@@ -9,9 +9,12 @@ var session = require('express-session');
 
 module.exports = function (app, config, passport) {
   // view engine setup
-  app.set('views', path.join(config.root, 'views'));
+  app.set('views', [
+    path.join(config.root, 'app/views'),
+    path.join(config.root, 'views')
+  ]);
   app.set('view engine', 'jade');
-  wiredep({src: path.join(config.root, 'views/layout.jade')});
+  wiredep({src: path.join(config.root, 'app/views/layout.jade')});
 
   app.use(favicon(path.join(config.root, '/public/favicon.ico')));
   app.use('/public', express.static(path.join(config.root, 'public')));

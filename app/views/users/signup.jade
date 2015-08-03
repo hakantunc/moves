@@ -1,7 +1,7 @@
-extends ../app/views/layout
+extends ../layout
 
 block content
-  form.form-horizontal(name="login", action="/login", method="post")
+  form.form-horizontal(name="signup", action="/users", method="post")
     .form-group
       label.col-sm-2.control-label Username
       .col-sm-10
@@ -12,4 +12,4 @@ block content
         input(type="password", name="password")
     .form-group
       .col-sm-offset-2.col-sm-10
-        button.btn.btn-default(type="submit", name="login") Login
+        button.btn.btn-default(type="submit", name="signup") Signup
