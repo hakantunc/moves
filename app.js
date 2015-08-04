@@ -35,8 +35,10 @@ app.use('/auth', auth.router);
 // });
 
 app.get('/', function (req, res) {
+  var user_id = req.session.passport.user;
   res.render('index', {
     title: 'Home',
+    user_id: user_id,
     content: 'Moves App'
   });
 });

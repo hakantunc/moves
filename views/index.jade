@@ -4,8 +4,12 @@ block content
   p #{content}
   .pages
     ul
-      li
-        a(href='/login') Login
+      if user_id
+        li
+          a(href='/logout') Logout
+      else
+        li
+          a(href='/login') Login
       li
         a(href='/signup') Sign Up
       li
