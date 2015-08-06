@@ -6,7 +6,9 @@ var salt = 'saline';
 
 var userSchema = mongoose.Schema({
     username: String,
-    hashed_pw: String
+    hashed_pw: String,
+    access_token: String,
+    refresh_token: String
 });
 
 userSchema.methods.validPassword = function (password) {

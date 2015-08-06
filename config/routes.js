@@ -15,4 +15,6 @@ module.exports = function (app, passport) {
   app.get('/logout', users.logout);
   app.get('/signup', users.signup);
   app.post('/users', users.create);
+  app.get('/auth', users.auth);
+  app.get('/auth/moves/callback', users.save_token);
 };

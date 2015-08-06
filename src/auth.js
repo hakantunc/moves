@@ -25,6 +25,14 @@ var authorization_uri = function (host, is_mobile) {
   }, is_mobile);
 };
 
+var get_token = function (req, callback) {
+  var code = req.query.code;
+  oauth2.authCode.getToken({
+    redirect_uri: get_redirect_uri(req.headers.host),
+    code: code
+  }, callback);
+};
+
 router.get('/moves/callback', function(req, res, next) {
   var code = req.query.code;
   oauth2.authCode.getToken({
@@ -45,5 +53,6 @@ router.get('/moves/callback', function(req, res, next) {
 module.exports = {
   authorization_uri: authorization_uri,
   oauth2: oauth2,
-  router: router
+  router: router,
+  get_token: get_token
 };
