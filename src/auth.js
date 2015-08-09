@@ -30,7 +30,29 @@ var get_token = function (req, callback) {
   oauth2.authCode.getToken({
     redirect_uri: get_redirect_uri(req.headers.host),
     code: code
-  }, callback);
+  }, function (err, result) {
+    debugger;
+    callback(err, result);
+  });
+};
+
+var get_access_token = function (req, callback) {
+  var user = req.user;
+  var token = oauth2.accessToken.create({
+    access_token: user.moves.access_token,
+    refresh_token: user.moves.refresh_token,
+    expires_in: Math.floor((user.moves.expires_at - new Date)/1000)
+  });
+  if (token.expired()) {
+    token.refresh(function(error, result) {
+      token = result;
+      user.updateMoves(token.token, function (err) {
+        callback(null, token.token.access_token);
+      });
+    });
+  } else {
+    callback(null, token.token.access_token);
+  }
 };
 
 router.get('/moves/callback', function(req, res, next) {
@@ -54,5 +76,6 @@ module.exports = {
   authorization_uri: authorization_uri,
   oauth2: oauth2,
   router: router,
-  get_token: get_token
+  get_token: get_token,
+  get_access_token: get_access_token
 };

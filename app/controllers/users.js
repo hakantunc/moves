@@ -35,9 +35,7 @@ module.exports = {
   save_token: function (req, res) {
     var user = req.user;
     auth.get_token(req, function (err, token) {
-      user.access_token = token.access_token;
-      user.refresh_token = token.refresh_token;
-      user.save(function (err) {
+      user.updateMoves(token, function (err) {
         res.redirect('/');
       });
     });

@@ -10,7 +10,7 @@ block content
       if user_id
         li
           a(href='/logout') Logout
-        if !user.access_token
+        if !user.moves.access_token
           li
             a(href='/auth') Authenticate
       else

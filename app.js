@@ -37,18 +37,22 @@ app.get('/', function (req, res) {
   });
 });
 
+var auth = require('./src/auth');
+
 app.get('/places', function (req, res) {
-  get_places_data(req.user.access_token, function (err, data) {
-    if (err) {
-      debug('err', err);
-      res.redirect('/');
-    } else {
-      var sorted_places = analyze.getPlacesSorted(data);
-      res.render('places', {
-        title: 'Places',
-        sorted_places: sorted_places
-      });
-    }
+  auth.get_access_token(req, function (err, access_token) {
+    get_places_data(access_token, function (err, data) {
+      if (err) {
+        debug('err', err);
+        res.redirect('/');
+      } else {
+        var sorted_places = analyze.getPlacesSorted(data);
+        res.render('places', {
+          title: 'Places',
+          sorted_places: sorted_places
+        });
+      }
+    });
   });
 });
 
