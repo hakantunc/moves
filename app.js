@@ -38,12 +38,17 @@ app.get('/', function (req, res) {
 });
 
 app.get('/places', function (req, res) {
-  get_places_data(req.session.access_token, function (err, data) {
-    var sorted_places = analyze.getPlacesSorted(data);
-    res.render('places', {
-      title: 'Places',
-      sorted_places: sorted_places
-    });
+  get_places_data(req.user.access_token, function (err, data) {
+    if (err) {
+      debug('err', err);
+      res.redirect('/');
+    } else {
+      var sorted_places = analyze.getPlacesSorted(data);
+      res.render('places', {
+        title: 'Places',
+        sorted_places: sorted_places
+      });
+    }
   });
 });
 
@@ -55,7 +60,10 @@ function get_places_data (access_token, next) {
   var full_path = url.resolve(site, request_path);
   // we get the json data.
   request(full_path, function (err, response, body) {
-    next(null, body);
+    if (body === 'expired_access_token')
+      next(body);
+    else
+      next(null, body);
   });
 }
 
