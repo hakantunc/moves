@@ -26,4 +26,8 @@ module.exports = function (app, config, passport) {
   var home = require(path.join(ctrls_p, 'home'));
   app.get('/', home.index);
 
+  var analyzer = require(path.join(ctrls_p, 'analyzer'));
+  app.get('/places', analyzer.places);
+  app.get('/commutes', analyzer.commutes);
+
 };
