@@ -20,22 +20,10 @@ require(path.join(config.root, 'app/models/users'));
 
 var passport = require('passport');
 require('./config/express')(app, config, passport);
-require('./config/passport')(passport, config);
-require('./config/routes')(app, passport);
+require('./config/passport')(passport);
+require('./config/routes')(app, config, passport);
 
 // rest is to be organized
-
-app.get('/', function (req, res) {
-  var user = req.user;
-  var user_id = req.session.passport.user;
-  res.render('index', {
-    title: 'Home',
-    user: user,
-    user_id: user_id,
-    d: process.env.DEBUG,
-    content: 'Moves App'
-  });
-});
 
 var auth = require('./src/auth');
 
