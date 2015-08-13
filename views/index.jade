@@ -7,17 +7,6 @@ block content
       if d && user
         li
           p #{user}
-      if user_id
-        li
-          a(href='/logout') Logout
-        if !user.moves.access_token
-          li
-            a(href='/auth') Authenticate
-      else
-        li
-          a(href='/login') Login
-        li
-          a(href='/signup') Sign Up
       li
         a(href='/places') Places
       li
