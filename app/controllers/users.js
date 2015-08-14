@@ -35,9 +35,14 @@ module.exports = {
   save_token: function (req, res) {
     var user = req.user;
     auth.get_token(req, function (err, token) {
-      user.updateMoves(token, function (err) {
+      if (!user) {
+        req.session.access_token = token.access_token;
         res.redirect('/');
-      });
+      } else {
+        user.updateMoves(token, function (err) {
+          res.redirect('/');
+        });
+      }
     });
   }
 

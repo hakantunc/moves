@@ -1,8 +1,6 @@
 'use strict';
 
 var debug = require('debug')('moves:auth');
-var express = require('express');
-var router = express.Router();
 var url = require('url');
 
 var oauth2 = require('simple-oauth2')({
@@ -31,13 +29,20 @@ var get_token = function (req, callback) {
     redirect_uri: get_redirect_uri(req.headers.host),
     code: code
   }, function (err, result) {
-    debugger;
     callback(err, result);
   });
 };
 
 var get_access_token = function (req, callback) {
   var user = req.user;
+  if (!user) {
+    if (req.session.access_token)
+      return callback(null, req.session.access_token);
+    else return callback('err');
+  }
+  if (!user.moves.access_token) {
+    return callback('err');
+  }
   var token = oauth2.accessToken.create({
     access_token: user.moves.access_token,
     refresh_token: user.moves.refresh_token,
@@ -55,27 +60,9 @@ var get_access_token = function (req, callback) {
   }
 };
 
-router.get('/moves/callback', function(req, res, next) {
-  var code = req.query.code;
-  oauth2.authCode.getToken({
-    redirect_uri: get_redirect_uri(req.headers.host),
-    code: code
-  }, saveToken);
-
-  function saveToken(error, result) {
-    if (error) { debug('Access Token Error', error); }
-    var token = oauth2.accessToken.create(result);
-    req.session.access_token = token.token.access_token;
-    req.session.refresh_token = token.token.refresh_token;
-    req.session.expires_in = token.token.expires_in;
-    res.redirect('/');
-  }
-});
-
 module.exports = {
   authorization_uri: authorization_uri,
   oauth2: oauth2,
-  router: router,
   get_token: get_token,
   get_access_token: get_access_token
 };

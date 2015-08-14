@@ -11,15 +11,18 @@ var t = new Commute();
 module.exports = {
   places: function (req, res) {
     auth.get_access_token(req, function (err, access_token) {
+      if (err) {
+        return res.redirect('/auth');
+      }
       get_places_data(access_token, function (err, data) {
         if (err) {
-          debug('err', err);
           res.redirect('/');
         } else {
           var sorted_places = analyze.getPlacesSorted(data);
           res.render('places', {
             title: 'Places',
-            sorted_places: sorted_places
+            sorted_places: sorted_places,
+            signed_in: !!req.user
           });
         }
       });
@@ -40,6 +43,9 @@ module.exports = {
 
   commutes: function (req, res) {
     auth.get_access_token(req, function (err, access_token) {
+      if (err) {
+        return res.redirect('/auth');
+      }
       var site = 'https://api.moves-app.com/';
       var request_path = '/api/1.1/user/storyline/daily?pastDays=28&access_token=' + access_token;
       var full_path = url.resolve(site, request_path);
@@ -53,7 +59,8 @@ module.exports = {
           // res.send(result);
           res.render('commutes', {
             title: 'Commutes',
-            commute_list: result
+            commute_list: result,
+            signed_in: !!req.user
           });
         }
       });

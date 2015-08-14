@@ -11,10 +11,7 @@ nav.navbar.navbar-inverse.navbar-default
     // Collect the nav links, forms, and other content for toggling
     #navbar-collapse.collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-right
-        if user_id
-          if !user.moves.access_token
-            li
-              a(href='/auth') Authenticate
+        if signed_in
           li
             a(href='/logout') Logout
         else

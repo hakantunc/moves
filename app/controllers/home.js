@@ -2,14 +2,13 @@
 
 module.exports = {
   index: function (req, res) {
-    var user = req.user;
-    var user_id = req.session.passport.user;
+    var user = process.env.DEBUG ? req.user : '';
     res.render('index', {
       title: 'Home',
-      user: user,
-      user_id: user_id,
+      content: 'Moves App',
+      signed_in: !!req.user,
       d: process.env.DEBUG,
-      content: 'Moves App'
+      user: user
     });    
   }
 };
