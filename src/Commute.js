@@ -9,18 +9,24 @@ Commute.prototype.getCommuteList = function (data) {
   var curr_item = {};
   var commuting = false;
 
-  debugger;
-  for (var i = 0; i < data.length; i++) {
-    for (var segment of data[i].segments) {
-      switch(segment.type) {
-        case 'place':
-          handlePlace();
-          break;
-        case 'move':
-          handleMove();
-          break;
+  try {
+    for (var i = 0; i < data.length; i++) {
+      if (!data[i]) continue;
+      if (data[i] == null) continue;
+      for (var segment of data[i].segments) {
+        switch(segment.type) {
+          case 'place':
+            handlePlace();
+            break;
+          case 'move':
+            handleMove();
+            break;
+        }
       }
     }
+  } catch (e) {
+    console.log('exception:', e);
+    return list;
   }
 
   return list;

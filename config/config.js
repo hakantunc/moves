@@ -7,5 +7,9 @@ module.exports = {
   development: {
     db: 'mongodb://localhost/moves',
     root: root_path
+  },
+  production: {
+    db: process.env.MONGOLAB_URI,
+    root: root_path
   }
 };

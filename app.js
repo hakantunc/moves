@@ -3,7 +3,7 @@
 var debug = require('debug')('moves:app');
 var path = require('path');
 
-var env = 'development';
+var env = process.env.ENV || 'development';
 var config = require('./config/config')[env];
 
 var mongoose = require('mongoose');

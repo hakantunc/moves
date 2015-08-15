@@ -9,14 +9,22 @@ var getTime = function (date) {
 var parsePlacesData = function (places) {
   places = JSON.parse(places);
   var list = {};
-  for (var day of places) {
-    for (var segment of day.segments) {
-      if (segment.place.name === undefined) continue;
-      list[segment.place.name] = list[segment.place.name] || new Array();
-      list[segment.place.name].push(
-        [day.date, getTime(segment.startTime), getTime(segment.endTime)]
-      );
+  console.log(places);
+  try {
+    for (var day of places) {
+      if (!day) continue;
+      console.log(day);
+      for (var segment of day.segments) {
+        if (!segment || !segment.place || !segment.place.name) continue;
+        list[segment.place.name] = list[segment.place.name] || new Array();
+        list[segment.place.name].push(
+          [day.date, getTime(segment.startTime), getTime(segment.endTime)]
+        );
+      }
     }
+  } catch (e) {
+    console.log('exception:', e);
+    return [];
   }
   var sorted_list = [];
   for (var key in list) {
